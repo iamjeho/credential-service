@@ -6,6 +6,8 @@
 ## 개요
 Evernym 사의 오픈소스 및 Sovrin 원장과 Connect.me 어플리케이션을 활용하여 모바일증명서 발급 및 검증 시스템울 구현하였다.
 
+발급기관은 Ajou University, 검증기관은 Acme.CO, 사용자는 Alice로 가정한다.
+
 ![image](https://user-images.githubusercontent.com/94879566/204530971-1a85e7df-4d84-45e3-a80d-821d0ba9ab63.png)
 
 
