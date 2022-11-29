@@ -33,12 +33,14 @@ docker run -p 5000:5000 -p 5050:5050 --env-file .env -it demo-web-app
 ```
 ## 관리자용 페이지
 1. localhost:5000 접속
+
 ![image](https://user-images.githubusercontent.com/94879566/204541230-d2490a70-fd72-4f29-8123-9e8c55a223f8.png)
 
 
 2. 지원자 연결
 - QR코드 생성 클릭
 - 팝업창 닫기
+
 - ![image](https://user-images.githubusercontent.com/94879566/204541273-7eac4752-e2c4-4c1b-a0f2-ad826efdcef2.png)
 
 - 생성된 QR은 사용자용 페이지(localhost:3030)에서 확인 가능
