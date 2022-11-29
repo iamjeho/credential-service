@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Acme CO. 입사지원시스템(관리자용)</title>
+    <title>증명서 통합관리시스템(아주대학교 관리자용)</title>
     <!-- VUE Development-->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <!-- VUE Production-->
@@ -49,22 +49,12 @@
                 style="margin: 0.6em 0;"
                 v-bind:style="{ color: textColor}"
               >
-                {{institutionName}}
+              증명서 통합관리시스템(아주대학교 관리자용)
               </p>
             </div>
           </section>
-
           <div>
             <!-- Button to delete all data from browser storage and reset VueJS to initial settings -->
-            <button
-              @mouseover="isResetHovered = true"
-              @mouseleave="isResetHovered = false"
-              v-on:click="resetBrowserStorage()"
-              class="w3-border w3-padding w3-round-large w3-small pointer"
-              v-bind:style="resetAllBtnStyle"
-            >
-              Reset All Fields
-            </button>
           </div>
         </nav>
       </header>
@@ -81,10 +71,7 @@
               >
 
               <div class="w3-text-gray">
-                <p class="text-bold">Scan to Create Connection</p>
-                <p class="w3-small">
-                  Scan this QR code with the Connect.Me app
-                </p>
+                <p class="text-bold">사용자에게 QR코드가 발급되었습니다.</p>
               </div>
 
               <div class="flex-center">
@@ -93,13 +80,376 @@
             </div>
           </div>
         </div>
-               
-        <div class="w3-content w3-padding-32 pure-g" style="max-width: 1080px;">
+
+        <div class="w3-content w3-padding-32 pure-g" style="width:100%" style="height:100%">
           <section class="pure-u-1 pure-u-md-5-8 l-box">
             <div class="functions-wrapper">
               <header>
-                <h3 class="w3-text-grey text-bold">Functions</h3>
+                <h3 class="w3-text-black text-bold">메뉴</h3>
               </header>
+              
+              <section id="setup-issuer" class="w3-margin-bottom">
+                <button
+                  v-on:click="openTab('setup-issuer')"
+                  class="pointer w3-block w3-border-0 w3-left-align w3-padding-large w3-round-large"
+                  v-bind:style="{ backgroundColor: accentColor, color: textColor}"
+                >
+                  <span
+                    class="down-arrow-icon"
+                    aria-hidden="true"
+                    :class="{rotated: currentTab === 'setup-issuer'}"
+                  ></span>
+                  관리자 생성
+                </button>
+                <div
+                  id="setup-issuer-content"
+                  v-show="currentTab === 'setup-issuer'"
+                  class="padding-vertical-20"
+                >
+
+                  <div>
+                    <div
+                      v-if="spinners.setupIssuer"
+                      class="w3-white w3-padding flex-center"
+                    >
+                    </div>
+
+                    <button
+                      v-else
+                      class="w3-border w3-padding-large w3-round w3-small pointer"
+                      v-on:click="setupIssuer()"
+                      @mouseover="areFunctionsBtnsHovered = true"
+                      @mouseleave="areFunctionsBtnsHovered = false"
+                      v-bind:style="funtionsBtnsStyles"
+                    >
+                      관리자 생성
+                    </button>
+                  </div>
+
+                  <section v-if="issuerDID !== ''">
+                    <div class="w3-margin-top">
+                      <p class="w3-text-gray w3-small">
+                        관리자 DID
+                      </p>
+                      <p class="w3-text-gray w3-small"><b>{{issuerDID}}</b></p>
+                    </div>
+
+                    <div class="w3-margin-top">
+                      <p class="w3-text-gray w3-small">
+                        관리자 키값
+                      </p>
+                      <p class="w3-text-gray w3-small">
+                        <b>{{issuerVerKey}}</b>
+                      </p>
+                    </div>
+                    <div class="w3-margin-top bg-info-gray w3-padding w3-padding-16 flex">
+                    </div>
+                  <div>
+                  </section>
+                </div>
+              </section>
+
+              <section id="write-schemas" class="w3-margin-bottom">
+                <button
+                  id="schemas"
+                  v-on:click="openTab('write-schemas')"
+                  class="pointer w3-block w3-border-0 w3-left-align w3-padding-large w3-round-large"
+                  v-bind:style="{ backgroundColor: accentColor, color: textColor}"
+                >
+                  <span
+                    class="down-arrow-icon"
+                    aria-hidden="true"
+                    :class="{rotated: currentTab === 'write-schemas'}"
+                  ></span>
+                  스키마 생성
+                </button>
+                <div
+                  id="write-schemas-content"
+                  v-show="currentTab === 'write-schemas'"
+                  class="padding-vertical-20"
+                >
+
+                  <div class="pure-g">
+                    <section class="pure-u-1 pure-u-md-1-2 padding-right">
+                      <h3
+                        class="w3-medium w3-text-grey text-bold w3-margin-bottom"
+                      >
+                        스키마 생성
+                      </h3>
+
+                      <form class="w3-form" v-on:submit.prevent="writeSchema()">
+                        <div class="w3-margin-bottom">
+                          <label for="schema-name" class="w3-text-gray w3-small"
+                            >스키마 이름</label
+                          >
+                          <input
+                            id="schema-name"
+                            class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                            type="text"
+                            v-model="schema.name"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                          />
+                        </div>
+
+                        <div class="w3-margin-top w3-margin-bottom">
+                          <label
+                            for="schema-version"
+                            class="w3-text-gray w3-small"
+                            >버전</label
+                          >
+                          <input
+                            id="schema-version"
+                            class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                            type="text"
+                            v-model="schema.version"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                          />
+                        </div>
+
+                        <div class="w3-margin-top w3-margin-bottom">
+                        <fieldset>
+                          <legend id="schema-attributes" class="w3-text-gray w3-small">속성</legend>
+                            <div class="w3-margin-bottom" v-for="(attr, index) in schema.attrs">
+                              <input
+                              v-model.trim="attr.value"
+                              name="attribute-name"
+                              :id="attr+index"
+                              aria-label='Schema attribute name'
+                              class="w3-input-short w3-light-grey w3-border-0 w3-round w3-padding"
+                              type="text"
+                              @focus="handleFocus"
+                              @blur="handleBlur"
+                              v-on:keyUp="addNewField(schema.attrs)"
+                              />
+                              <button 
+                                class="btn w3-small pointer w3-padding-small" v-bind:class="{hidden: index===0}" v-on:click.prevent="deleteAttribute(index, schema.attrs)">
+                                <i class="fa fa-times-circle"></i>
+                              </button>  
+                            </div>
+                        </fieldset> 
+                      </div>
+
+                        <div
+                          v-if="spinners.schemas"
+                          class="w3-btn w3-border w3-white w3-padding"
+                        >
+                          <div class="loader"></div>
+                        </div>
+
+                        <button
+                          v-else
+                          class="w3-border w3-padding-large w3-round w3-small pointer"
+                          @mouseover="areFunctionsBtnsHovered = true"
+                          @mouseleave="areFunctionsBtnsHovered = false"
+                          v-bind:style="funtionsBtnsStyles"
+                        >
+                          스키마 등록
+                        </button>
+                      </form>
+                    </section>
+
+                    <section class="pure-u-1 pure-u-md-1-2 padding-left">
+                      <h3
+                        class="w3-medium w3-text-grey text-bold w3-margin-bottom"
+                      >
+                        스키마 목록
+                      </h3>
+
+                      <div v-if="schemas.length === 0" class="">
+                        <p class="w3-text-gray w3-small">
+                          정의된 스키마가 존재하지 않습니다.
+                        </p>
+                      </div>
+
+                      <div v-else class="scroll-display-height-300">
+                        <div v-for="schema in schemas">
+                          <div class="w3-margin-top">
+                            <p class="w3-text-gray w3-small">
+                              스키마 이름
+                            </p>
+                            <p class="w3-text-gray w3-small text-bold">
+                              {{schema.name}}
+                            </p>
+                          </div>
+                          <div>
+                            <p class="w3-text-gray w3-small">
+                              스키마 ID
+                            </p>
+                            <p class="w3-text-gray w3-small text-bold">
+                              {{schema.id}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </section>
+
+              <section id="cred-defs" class="w3-margin-bottom">
+                <button
+                  id="credentialDefinitions"
+                  v-on:click="openTab('cred-defs')"
+                  class="pointer w3-block w3-border-0 w3-left-align w3-padding-large w3-round-large"
+                  v-bind:style="{ backgroundColor: accentColor, color: textColor}"
+                >
+                  <span
+                    class="down-arrow-icon"
+                    aria-hidden="true"
+                    :class="{rotated: currentTab === 'cred-defs'}"
+                  ></span>
+                  증명서 양식
+                </button>
+                <div
+                  id="cred-defs-content"
+                  v-show="currentTab === 'cred-defs'"
+                  class="padding-vertical-20"
+                >
+
+                  <div class="pure-g">
+                    <section class="pure-u-1 pure-u-md-1-2 padding-right">
+                      <h3
+                        class="w3-medium w3-text-grey text-bold w3-margin-bottom"
+                      >
+                        새로운 증명서 양식 등록
+                      </h3>
+
+                      <form
+                        class="w3-form"
+                        v-on:submit.prevent="writeCredDef()"
+                      >
+                        <div class="w3-margin-bottom">
+                          <label
+                            for="cred-def-name"
+                            class="w3-text-gray w3-small"
+                            >증명서 양식 이름</label
+                          >
+                          <input
+                            id="cred-def-name"
+                            class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                            type="text"
+                            v-model="credDef.name"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                          />
+                        </div>
+
+                        <div class="w3-margin-top w3-margin-bottom">
+                          <label
+                            for="cred-def-schema-id"
+                            class="w3-text-gray w3-small"
+                            >스키마 ID</label
+                          >
+                          <select
+                            id="cred-def-schema-id"
+                            class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                            type="text"
+                            v-model="credDef.schemaId"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                            @change="handleSelect($event, schemas)"
+                          >
+                            <option disabled value="">
+                              -- 스키마 ID를 선택하세요. --
+                            </option>
+                            <option
+                              v-for="schema in schemas"
+                              v-bind:value="schema.id">
+                              {{schema.id}}
+                            </option>
+                        </select>
+                    </div>
+                        <div class="w3-margin-top w3-margin-bottom">
+                          <label
+                            for="cred-def-tag"
+                            class="w3-text-gray w3-small"
+                            >태그 (선택사항)</label
+                          >
+                          <input
+                            id="cred-def-tag"
+                            class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                            type="text"
+                            v-model="credDef.tag"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                          />
+                        </div>
+
+                        <div class="w3-margin-top w3-margin-bottom">
+                          <label
+                            for="cred-def-revocation-details"
+                            class="w3-text-gray w3-small"
+                            >만료기한 (선택사항)</label
+                          >
+                          <input
+                            id="cred-def-revocation-details"
+                            class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                            type="text"
+                            v-model="credDef.revocationDetails"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                          />
+                        </div>
+
+                        <div
+                          v-if="spinners.credDefs"
+                          class="w3-btn w3-border w3-white w3-padding"
+                        >
+                          <div class="loader"></div>
+                        </div>
+
+                        <button
+                          v-else
+                          class="w3-border w3-padding-large w3-round w3-small pointer"
+                          @mouseover="areFunctionsBtnsHovered = true"
+                          @mouseleave="areFunctionsBtnsHovered = false"
+                          v-bind:style="funtionsBtnsStyles"
+                        >
+                          증명서 양식 등록
+                        </button>
+                      </form>
+                    </section>
+
+                    <section class="pure-u-1 pure-u-md-1-2 padding-left">
+                      <h3
+                        class="w3-medium w3-text-grey text-bold w3-margin-bottom"
+                      >
+                        증명서 양식 목록
+                      </h3>
+
+                      <div v-if="credDefs.length === 0" class="">
+                        <p class="w3-text-gray w3-small">
+                          증명서 양식이 존재하지 않습니다.
+                        </p>
+                      </div>
+
+                      <div v-else class="scroll-display-height-300">
+                        <div v-for="credDef in credDefs">
+                          <div class="w3-margin-top">
+                            <p class="w3-text-gray w3-small">
+                              증명서 양식 이름
+                            </p>
+                            <p class="w3-text-gray w3-small text-bold">
+                              {{credDef.name}}
+                            </p>
+                          </div>
+                          <div>
+                            <p class="w3-text-gray w3-small">
+                              증명서 양식 ID
+                            </p>
+                            <p class="w3-text-gray w3-small text-bold">
+                              {{credDef.id}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </section>
+
               <section id="connections" class="w3-margin-bottom">
                 <button
                   v-on:click="openTab('connections')"
@@ -111,7 +461,7 @@
                     aria-hidden="true"
                     :class="{rotated: currentTab === 'connections'}"
                   ></span>
-                  Connections
+                  사용자 연결
                 </button>
                 <div
                   id="connections-content"
@@ -123,23 +473,8 @@
                       <h3
                         class="w3-medium w3-text-grey text-bold w3-margin-bottom"
                       >
-                        Add a New Connection
+                        사용자 연결
                       </h3>
-
-                      <div class="w3-margin-bottom">
-                        <label
-                          for="connection-name"
-                          class="w3-text-gray w3-small"
-                          >Connection Name</label
-                        >
-                        <input
-                          id="connection-name"
-                          class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
-                          v-model="connection.name"
-                          @focus="handleFocus"
-                          @blur="handleBlur"
-                        />
-                      </div>
 
                       <div
                         v-if="spinners.connections"
@@ -156,7 +491,7 @@
                         v-bind:style="funtionsBtnsStyles"
                         v-on:click="newConnection()"
                       >
-                        Add New Connection
+                        QR코드 생성
                       </button>
                     </section>
 
@@ -164,29 +499,19 @@
                       <h3
                         class="w3-medium w3-text-grey text-bold w3-margin-bottom"
                       >
-                        Existing Connections
+                        연결 목록
                       </h3>
 
                       <div v-if="connections.length === 0" class="">
-                        <img
-                          src="images/none-yet.png"
-                          alt="None Connections Yet"
-                        />
+                        <p class="w3-text-gray w3-small">
+                          연결된 사용자가 없습니다.
+                        </p>
                       </div>
-
                       <div v-else class="scroll-display-height-300">
                         <div v-for="connection in connections">
-                          <div class="w3-margin-top">
-                            <p class="w3-text-gray w3-small">
-                              Connection Name
-                            </p>
-                            <p class="w3-text-gray w3-small text-bold">
-                              {{connection.name}}
-                            </p>
-                          </div>
                           <div>
                             <p class="w3-text-gray w3-small">
-                              Connection DID
+                              사용자 DID
                             </p>
                             <p class="w3-text-gray w3-small text-bold">
                               {{connection.did}}
@@ -199,179 +524,119 @@
                 </div>
               </section>
 
-              <section id="proofs" class="w3-margin-bottom">
+              <section id="creds" class="w3-margin-bottom">
                 <button
-                  v-on:click="openTab('proofs')"
+                  id="issueCredential"
+                  v-on:click="openTab('creds')"
                   class="pointer w3-block w3-border-0 w3-left-align w3-padding-large w3-round-large"
                   v-bind:style="{ backgroundColor: accentColor, color: textColor}"
                 >
                   <span
                     class="down-arrow-icon"
                     aria-hidden="true"
-                    :class="{rotated: currentTab === 'proofs'}"
+                    :class="{rotated: currentTab === 'creds'}"
                   ></span>
-                  Request Proofs
+                  증명서 발급
                 </button>
+
                 <div
-                  id="proofs-content"
-                  v-show="currentTab === 'proofs'"
+                  id="creds-content"
+                  v-show="currentTab === 'creds'"
                   class="padding-vertical-20"
                 >
-                  <div class="pure-g">
-                    <section class="pure-u-1 pure-u-md-1-2 padding-right">
-                      <h4
-                        class="w3-medium w3-text-grey text-bold w3-margin-bottom"
-                      >
-                        Send Proof Request
-                      </h4>
-
-                      <div class="w3-margin-bottom">
-                        <label for="proof-name" class="w3-text-gray w3-small"
-                          >Proof Request Name</label
-                        >
-                        <input
-                          id="proof-name"
-                          class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
-                          v-model="proof.name"
-                          @focus="handleFocus"
-                          @blur="handleBlur"
-                        />
-                      </div>
-
-                      <div class="w3-margin-top w3-margin-bottom">
-                        <label
-                          for="proof-relationship-did"
-                          class="w3-text-gray w3-small"
-                          >Relationship DID</label
-                        >
-                        <select
-                          id="proof-relationship-did"
-                          class="w3-input w3-light-grey w3-border-0 w3-round w3-padding select-css"
-                          v-model="proof.relationshipDID"
-                          @focus="handleFocus"
-                          @blur="handleBlur"
-                        >
-                          <option disabled value="">
-                            -- select an option --
-                          </option>
-                          <option
-                            v-for="option in connections"
-                            v-bind:value="option.did"
-                          >
-                            {{ option.did }}
-                          </option>
-                        </select>
-                      </div>
-
-                      <div class="w3-margin-top">
-                        <fieldset>
-                          <legend id="proof-attributes" class="w3-text-gray w3-small">Proof Attributes</legend>
-                            <div class="w3-margin-bottom" v-for="(attr, index) in proof.attrs">
-                              <input
-                              v-model.trim="attr.name"
-                              name="attribute-name"
-                              :id="attr.name+index"
-                              aria-label='Proof attribute name'
-                              class="w3-input-short w3-light-grey w3-border-0 w3-round w3-padding"
-                              type="text"
-                              @focus="handleFocus"
-                              @blur="handleBlur"
-                              v-on:keyUp="addNewField(proof.attrs)"
-                              />
-                              <button 
-                                class="btn w3-small pointer w3-padding-small" v-bind:class="{hidden: index===0}" v-on:click.prevent="deleteAttribute(index, proof.attrs)">
-                                <i class="fa fa-times-circle"></i>
-                              </button>  
-                            </div>
-                        </fieldset> 
-                      </div>
-
-                      <div class="w3-margin-bottom">
-                        <label
-                          for="proof-predicates"
-                          class="w3-text-gray w3-small"
-                          >JSON Array of Proof Predicates (optional)</label
-                        >
-                        <input
-                          id="proof-predicates"
-                          class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
-                          v-model="proof.predicates"
-                          @focus="handleFocus"
-                          @blur="handleBlur"
-                        />
-                      </div>
-
-                      <div class="w3-margin-bottom">
-                        <label
-                          for="proof-revocationInterval"
-                          class="w3-text-gray w3-small"
-                          >Revocation Interval (optional)</label
-                        >
-                        <input
-                          id="proof-revocationInterval"
-                          class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
-                          v-model="proof.revocationInterval"
-                          @focus="handleFocus"
-                          @blur="handleBlur"
-                        />
-                      </div>
-
-                      <div
-                        v-if="spinners.proofs"
-                        class="w3-btn w3-border w3-white w3-padding"
-                      >
-                        <div class="loader"></div>
-                      </div>
-
-                      <button
-                        v-else
-                        class="w3-border w3-padding-large w3-round w3-small pointer"
-                        @mouseover="areFunctionsBtnsHovered = true"
-                        @mouseleave="areFunctionsBtnsHovered = false"
-                        v-bind:style="funtionsBtnsStyles"
-                        v-on:click="sendProofRequest()"
-                      >
-                        Send Proof Request
-                      </button>
-                    </section>
-
-                    <section class="pure-u-1 pure-u-md-1-2 padding-left">
-                      <h4
-                        class="w3-medium w3-text-grey text-bold w3-margin-bottom"
-                      >
-                        Received Proofs
-                      </h4>
-
-                      <div v-if="proofs.length === 0">
-                        <img
-                          src="images/none-yet.png"
-                          alt="None Received Proof Yet"
-                        />
-                      </div>
-
-                      <div v-else class="scroll-display-height-300">
-                        <div v-for="proof in proofs">
-                          <div class="w3-margin-top">
-                            <p class="w3-text-gray w3-small">
-                              Relationship DID
-                            </p>
-                            <p class="w3-text-gray w3-small text-bold">
-                              {{proof.did}}
-                            </p>
-                          </div>
-
-                          <div>
-                            <p class="w3-text-gray w3-small">
-                              Data
-                            </p>
-                            <p class="w3-text-gray w3-small text-bold">
-                              {{proof.data}}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
+                  <div class="w3-margin-bottom">
+                    <label for="credential-name" class="w3-text-gray w3-small"
+                      >증명서 이름</label
+                    >
+                    <input
+                      id="credential-name"
+                      class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                      v-model="credential.name"
+                      @focus="handleFocus"
+                      @blur="handleBlur"
+                    />
                   </div>
+
+                  <div class="w3-margin-top w3-margin-bottom">
+                    <label for="relationship-did" class="w3-text-gray w3-small"
+                      >사용자 DID</label
+                    >
+                    <select
+                      id="relationship-did"
+                      class="w3-input w3-light-grey w3-border-0 w3-round w3-padding select-css"
+                      v-model="credential.relationshipDID"
+                      @focus="handleFocus"
+                      @blur="handleBlur"
+                    >
+                      <option disabled value="">
+                        -- 증명서를 발급할 사용자 DID를 선택하세요 -
+                      </option>
+                      <option
+                        v-for="option in connections"
+                        v-bind:value="option.did"
+                      >
+                        {{ option.did }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="w3-margin-top w3-margin-bottom">
+                    <label for="cred-def-id" class="w3-text-gray w3-small"
+                      >증명서 양식 목록</label
+                    >
+                    <select
+                      id="cred-def-id"
+                      class="w3-input w3-light-grey w3-border-0 w3-round w3-padding select-css"
+                      v-model="credential.credDefId"
+                      @focus="handleFocus"
+                      @blur="handleBlur"
+                      @change="handleSelect($event, credDefs)"  
+                    >
+                      <option disabled value="">
+                        -- 발급할 증명서 양식을 선택하세요 --
+                      </option>
+                      <option
+                        v-for="option in credDefs"
+                        v-bind:value="option.id"
+                      >
+                        {{ option.id }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="w3-margin-top">
+                    <fieldset>
+                      <legend id="credential-values" class="w3-text-gray w3-small">속성값 입력</legend>
+                        <div v-if="credential.attrs.length === 0" class="w3-margin-bottom">
+                        </div>
+                        <div class="w3-margin-bottom" v-for="(attr, index) in credential.attrs">
+                        <label for="index+attr" v-bind:key="index" class="w3-text-gray w3-small">{{attr}}</label>
+                        <input 
+                        :id="index+attr" 
+                        v-bind:key="index" 
+                        class="w3-input w3-light-grey w3-border-0 w3-round w3-padding"
+                        v-model="credential.attrValues[index]"
+                        />
+                      </div>
+                    </fieldset>
+                  </div>  
+
+                  <div
+                    v-if="spinners.creds"
+                    class="w3-btn w3-border w3-white w3-padding"
+                  >
+                    <div class="loader"></div>
+                  </div>
+                  <button
+                    v-else
+                    class="w3-border w3-padding-large w3-round w3-small pointer"
+                    @mouseover="areFunctionsBtnsHovered = true"
+                    @mouseleave="areFunctionsBtnsHovered = false"
+                    v-bind:style="funtionsBtnsStyles"
+                    v-on:click="offerCredential()"
+                  >
+                    증명서 발급
+                  </button>
                 </div>
               </section>
         </div>
@@ -391,9 +656,9 @@
           webhookURL: "",
           issuerDID: "",
           issuerVerKey: "",
-          institutionName: "Acme Co.",
-          institutionLogoURL: "https://freeiconshop.com/wp-content/uploads/edd/bank-flat.png",
-          accentColor: "#86B93B",
+          institutionName: "Ajou University",
+          institutionLogoURL: "https://www.ajou.ac.kr/_res/ajou/kr/img/intro/img-symbol.png",
+          accentColor: "#215dbf",
           inviteDetailQRCode: "",
           schemas: [],
           credDefs: [],

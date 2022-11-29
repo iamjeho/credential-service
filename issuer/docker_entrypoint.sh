@@ -27,6 +27,6 @@ printf "WEBHOOK_URL: ${GREEN}${WEBHOOK_URL}${NC}\n"
 echo
 
 str="node app.js"
-str2="node qr_app.js"
+str2="node user_app.js"
 
 eval $str & $str2

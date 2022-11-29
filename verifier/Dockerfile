@@ -32,17 +32,17 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
 
 WORKDIR /verity-demo-app
 
-COPY app.js qr_app.js package.json package-lock.json ./
+COPY app.js user_app.js package.json package-lock.json ./
 
 COPY public ./public
-COPY qr_public ./qr_public
+COPY user_public ./user_public
 
 # Install npm packages
 RUN npm install 2>/dev/null
 
 EXPOSE 5000 5050
 
-COPY docker_entrypoint.sh qr_docker_entrypoint.sh /docker_scripts/
+COPY docker_entrypoint.sh /docker_scripts/
 
 # Start Ngrok tunnel for webhook URL in docker entrypoint
 ENTRYPOINT ["/docker_scripts/docker_entrypoint.sh"]

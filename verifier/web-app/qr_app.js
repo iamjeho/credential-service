@@ -537,12 +537,7 @@ async function main () {
   })
 
   // Serve static files (F/E) contained in the public folder
-  app.use(express.static('qr_public'))
-
-  // Set templating engine to Pug
-  // Pug is used to render accountPage.pug view differently depending on if the user is authenticated
-  app.set('view engine', 'pug')
-  app.set('views', './views')
+  app.use(express.static('user_public'))
 
   // Listen for messages from VAS
   server.listen(PORT, async () => {
