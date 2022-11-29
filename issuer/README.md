@@ -71,9 +71,3 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 - Connect.me 내 My Connections에서 연결 상태 확인 가능
 - 발급기관이 증명서 발급 시 Connect.me에서 Accept Credential 클릭
 - 발급된 증명서는 Connect.me 내 My Credentials에서 확인가능
-
-### Suggestions?
-
-Are there other sample apps you would like to see here? [Send us your suggestions!](mailto:support@evernym.com)
-
-© 2022, ALL RIGHTS RESERVED, AJOU .
