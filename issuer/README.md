@@ -69,9 +69,11 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 5. 사용자 연결
 
 - QR코드 생성 클릭
+
 ![image](https://user-images.githubusercontent.com/94879566/204536280-ebb26aad-8e6c-4dcc-945d-376011cb9343.png)
 
 - 팝업창 닫기
+
 ![image](https://user-images.githubusercontent.com/94879566/204536315-1672583d-aa39-4fcf-968e-b54f8765e447.png)
 
 - 생성된 QR은 사용자용 페이지(localhost:3030)에서 확인 가능
@@ -84,6 +86,8 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 - 증명서 양식 선택
 - 속성에 해당되는 값 입력
 - 증명서 발급 버튼 클릭
+
+
 ![image](https://user-images.githubusercontent.com/94879566/204536418-24c66047-4123-46b4-892d-4439f53f02bf.png)
 
 
