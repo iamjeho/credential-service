@@ -1,4 +1,4 @@
-# DID 기반 증명서 통합관리 시스템(발급기관 용)
+# DID 기반 증명서 통합관리 시스템
       
 본 시스템은 DID 기반 증명서 통합관리 시스템 Demo이다.
  
@@ -12,6 +12,10 @@ Evernym 사의 오픈소스 및 Sovrin 원장과 Connect.me 어플리케이션�
 
 ## 개발 환경
 OS : Ubuntu 18.04 LTS
+
 Docker : 20.10.7
+
 Mobile Application : Connect-me
+
 Open Source : Evernym verity-sdk(https://github.com/evernym/verity-sdk)
+
