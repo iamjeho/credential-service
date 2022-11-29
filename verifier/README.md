@@ -1,67 +1,56 @@
-## Verity Sample Web App
+## DID 기반 증명서 통합관리 시스템(검증기관 용) Demo
+      
+본 시스템은 증명서 검증기관 용 DID 기반 증명서 통합관리 시스템 Demo입니다. 
+ 
 
-This is a sample web app demonstrating how Verity REST API can be used for SSI flows like connection establishment, credential issuance, proof exchange or committed answer.
+## 사전 준비사항
+요구사항(관리자)
+- Ubuntu OS가 설치되어 있는 Server
+- Evernym으로부터 수신 받은 Domain DID와 REST API key(support@evernym.com으로 문의)
+- Docker 설치
 
-### Launching the application Locally
+요구사항(사용자)
+- Connect.me가 설치된 Mobile 기기(Android 기반 Mobile Device: 구글 플레이스토어에서 설치 / ios · ipados : 앱스토어에서 설치)
 
-Requirements:
-- You have received Domain DID and REST API key from Evernym
-- You have NodeJs v12 installed
-- You have ngrok installed ([https://ngrok.com/](https://ngrok.com/)).
-> NOTE: Ngrok is used to create a public webhook URL which will forward response messages from Verity Application Server to the web app. If you have capabilities to start the application on a public IP address then you don't need ngrok]
 
-To try out the application follow these steps:
-
-- In a separate terminal window start ngrok for port 3000 and leave it running:
-```sh
-ngrok http 3000
-```
-- Install required NodeJs packages:
-```sh
-npm install
-```
-- Start the web app
-```sh
-node app.js
-```
-
-- Fill in prompts for input parameters:
-```sh
-Verity Application URL: https://vas.pps.evernym.com
-Domain DID: <copy domain DID received from Evernym>
-X-API-KEY: <copy API key received from Evernym>
-Webhook URL: <copy public URL address of the Ngrok forwarding tunnel to your local port 3000>
-```
-
-The application will be available on http://localhost:3000
-
-### Launching the application using Docker
-
-Requirements:
-- You have received Domain DID and REST API key from Evernym
-- You have Docker installed
-
-To start the app follow these steps:
-- Fill in values for VERITY_URL, DOMAIN_DID and X_API_KEY (you should have received these inputs from Evernym) into **.env** file in the current folder. A properly filled **.env** file should have this format:
+Domain DID와 REST API key 적용
+- Evernym으로 부터 수신받은 Domain DID와 REST API key 를 **.env**에 삽입 후 저장.
+예시:
 ```sh
 VERITY_URL=https://vas.pps.evernym.com
-DOMAIN_DID=W1TWvjCTGzHGEgbzdh5U4b
-X_API_KEY=AkdrCwUhNXiQi3zgwKw2KhR6muAX1Q18phP4cfuMtvq4:4cBQC9EsbMa9T96KA4noZwLJQuVcd6KBwaqFhRqZQKFWT45VEm3jbPCm8S6bqhwh3UKEKAPkHeLz9Gb1d1YE1dW
+DOMAIN_DID=          #수정필요
+X_API_KEY=           #수정필요
 ```
-> NOTE: These are just sample reference values. These values will NOT work if left unchanged. You should specify DOMAIN_DID and X_API_KEY that you received from Evernym
-- Create a docker image with pre-installed requirements. Run this command from the current folder:
+
+서버 실행
+- 빌드 : 
 ```sh
 docker build -t demo-web-app .
 ```
-Start a Docker container:
+- 실행 : 
 ```sh
-docker run -p 3000:3000 --env-file .env -it demo-web-app
+docker run -p 5000:5000 -p 5050:5050 --env-file .env -it demo-web-app
 ```
+## 관리자용 페이지
+1. localhost:5000 접속
 
-The application will be available on http://localhost:3000
+2. 지원자 연결
+- QR코드 생성 클릭
+- 팝업창 닫기
+- 생성된 QR은 사용자용 페이지(localhost:3030)에서 확인 가능
 
-### Suggestions?
+3. 증명서 제출 요청
+- 요청 이름 지정
+- 지원자 DID 선택
+- 지원에 필요한 증명서 속성 지정
+- 사용자에게 증명서 제출 요청
+- 사용자가 증명서 제출 시 수신된 증명서에서 데이터 확인 가능
 
-Are there other sample apps you would like to see here? [Send us your suggestions!](mailto:support@evernym.com)
+## 사용자용 페이지
+1. localhost:5050 접속
 
-© 2013-2020, ALL RIGHTS RESERVED, EVERNYM INC.
+2. 증명서 제출
+- 페이지 내 QR코드를 Connect.me로 인증 후 Connect 버튼 클릭
+- Connect.me 내 My Connections에서 연결 상태 확인 가능
+- 발급기관이 증명서 제출 요청 시 Connect.me 앱에서 속성값 확인 후 Share Attributes 클릭
+- 발급된 증명서는 Connect.me 내 My Credentials에서 확인 가능
