@@ -99,18 +99,24 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 
 2. 증명서 발급 신청
 - 페이지 내 QR코드를 Connect.me로 인증 후 Connect 버튼 클릭
+
 - ![image](https://user-images.githubusercontent.com/94879566/204539415-1b88c1cd-2e5f-48c4-bfac-ad4e98d82ce3.png)
+
 - ![image](https://user-images.githubusercontent.com/94879566/204539572-831bfd7f-4b1a-4386-8e04-574280b28564.png)
 
 - Connect.me 내 My Connections에서 연결 상태 확인 가능
+
 -![image](https://user-images.githubusercontent.com/94879566/204539593-50fed5f1-1134-4888-8c21-52d0656fe53d.png)
 
 
 - 발급기관이 증명서 발급 시 Connect.me에서 Accept Credential 클릭
+
 ![image](https://user-images.githubusercontent.com/94879566/204539632-00297442-dca1-45aa-82ab-de92c8a3a9f3.png)
 
 - 발급된 증명서는 Connect.me 내 My Credentials에서 확인가능
+
 - ![image](https://user-images.githubusercontent.com/94879566/204539659-057dbb94-c61e-42ee-9696-d38d5d68f11c.png)
+
 - ![image](https://user-images.githubusercontent.com/94879566/204539687-b4119d26-d2d0-4452-b795-b4c9e4ecf9cf.png)
 
 
