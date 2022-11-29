@@ -15,7 +15,7 @@ OS : Ubuntu 18.04 LTS
 
 Docker : 20.10.7
 
-Mobile Application : Connect-me
+Mobile Application : Connect.me
 
 Open Source : Evernym verity-sdk(https://github.com/evernym/verity-sdk)
 
