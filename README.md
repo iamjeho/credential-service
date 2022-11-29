@@ -8,7 +8,8 @@ Evernym 사의 오픈소스 및 Sovrin 원장과 Connect.me 어플리케이션�
 
 ![image](https://user-images.githubusercontent.com/94879566/204530971-1a85e7df-4d84-45e3-a80d-821d0ba9ab63.png)
 
-                                                [시스템 아키텍처]
+
+[시스템 아키텍처]
 
 
 ## 개발 환경
