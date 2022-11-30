@@ -176,11 +176,10 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 - 발급된 증명서는 Connect.me 내 My Credentials에서 확인가능
 
 
-
-- ![image](https://user-images.githubusercontent.com/94879566/204539659-057dbb94-c61e-42ee-9696-d38d5d68f11c.png)
-
+![image](https://user-images.githubusercontent.com/94879566/204539659-057dbb94-c61e-42ee-9696-d38d5d68f11c.png)
 
 
-- ![image](https://user-images.githubusercontent.com/94879566/204539687-b4119d26-d2d0-4452-b795-b4c9e4ecf9cf.png)
+
+![image](https://user-images.githubusercontent.com/94879566/204539687-b4119d26-d2d0-4452-b795-b4c9e4ecf9cf.png)
 
 
