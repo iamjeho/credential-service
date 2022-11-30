@@ -90,7 +90,7 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 - 증명서 양식 목록 확인
 
 
-![image](https://user-images.githubusercontent.com/94879566/204536207-1ab51b49-0b54-480a-a86f-3c0334b66e91.png)
+![image](https://user-images.githubusercontent.com/94879566/204726102-cd3ca02f-f2ba-4195-a92d-845d81e734a4.png)
 
 
 
@@ -100,13 +100,13 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 - QR코드 생성 클릭
 
 
-![image](https://user-images.githubusercontent.com/94879566/204536280-ebb26aad-8e6c-4dcc-945d-376011cb9343.png)
+![image](https://user-images.githubusercontent.com/94879566/204726133-7635b14b-5abb-4250-ad43-a8edf85dd409.png)
 
 
 - 팝업창 닫기
 
 
-![image](https://user-images.githubusercontent.com/94879566/204536315-1672583d-aa39-4fcf-968e-b54f8765e447.png)
+![image](https://user-images.githubusercontent.com/94879566/204726154-df3a6c86-b4b4-48cb-a720-5301ea0057d0.png)
 
 
 - 생성된 QR은 사용자용 페이지(localhost:3030)에서 확인 가능
@@ -114,41 +114,72 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 
 
 6. 증명서 발급
+
+
 - 증명서 이름 지정
-- 증명서 발급할 사용자 DID 선택
+
+
+- 증명서 발급할 사용자 DID 선택(사용자가 QR인증을 완료한 상태여야 함) 
+
+
 - 증명서 양식 선택
+
+
 - 속성에 해당되는 값 입력
+
+
 - 증명서 발급 버튼 클릭
 
 
-![image](https://user-images.githubusercontent.com/94879566/204536418-24c66047-4123-46b4-892d-4439f53f02bf.png)
+![image](https://user-images.githubusercontent.com/94879566/204726309-00feabb6-3e17-45bf-b076-1917bda6c8c3.png)
 
 
 
 
 ## 사용자용 페이지
 1. localhost:3030 접속
-<img width="608" alt="스크린샷_20221129_101755" src="https://user-images.githubusercontent.com/94879566/204539300-f42f2761-247a-4fda-8594-d8ccc02af34a.png">
+
+
+![image](https://user-images.githubusercontent.com/94879566/204726356-0583bdc7-bd1f-4700-99aa-8f481b904e50.png)
+
+
 
 2. 증명서 발급 신청
+
+
 - 페이지 내 QR코드를 Connect.me로 인증 후 Connect 버튼 클릭
 
-- ![image](https://user-images.githubusercontent.com/94879566/204539415-1b88c1cd-2e5f-48c4-bfac-ad4e98d82ce3.png)
 
-- ![image](https://user-images.githubusercontent.com/94879566/204539572-831bfd7f-4b1a-4386-8e04-574280b28564.png)
+![image](https://user-images.githubusercontent.com/94879566/204726562-956c8182-7f58-4077-b5b4-6a91ba6eb41f.png)
+
+
+![image](https://user-images.githubusercontent.com/94879566/204726577-375465b3-9bd2-49a3-8d9a-85b69ab59c71.png)
+
+
 
 - Connect.me 내 My Connections에서 연결 상태 확인 가능
 
--![image](https://user-images.githubusercontent.com/94879566/204539593-50fed5f1-1134-4888-8c21-52d0656fe53d.png)
+
+
+![image](https://user-images.githubusercontent.com/94879566/204726596-41e39613-448e-4111-ab8f-624293615de0.png)
+
 
 
 - 발급기관이 증명서 발급 시 Connect.me에서 Accept Credential 클릭
 
+
+
 ![image](https://user-images.githubusercontent.com/94879566/204539632-00297442-dca1-45aa-82ab-de92c8a3a9f3.png)
+
+
 
 - 발급된 증명서는 Connect.me 내 My Credentials에서 확인가능
 
+
+
 - ![image](https://user-images.githubusercontent.com/94879566/204539659-057dbb94-c61e-42ee-9696-d38d5d68f11c.png)
+
+
 
 - ![image](https://user-images.githubusercontent.com/94879566/204539687-b4119d26-d2d0-4452-b795-b4c9e4ecf9cf.png)
 
