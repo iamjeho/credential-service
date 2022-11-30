@@ -32,13 +32,16 @@ docker build -t demo-web-app .
 docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 ```
 ## 관리자용 페이지
-1. localhost:3000 접속
-
+1. localhost:3000 접속  
 ![image](https://user-images.githubusercontent.com/94879566/204724775-9356e65d-d17b-408b-a9f9-c6f0683ffa9a.png)
 
 
-2. 관리자 생성
+2. 관리자 생성  
+
+
 - 관리자 생성 버튼 클릭
+
+
 - 관리자 DID 및 키값 생성 확인
 ![image](https://user-images.githubusercontent.com/94879566/204724932-3df7c544-994b-4129-8950-0922e86e5975.png)
 
