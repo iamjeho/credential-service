@@ -39,20 +39,20 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 2. 관리자 생성  
 
 
-- 관리자 생성 버튼 클릭
-
-
-- 관리자 DID 및 키값 생성 확인
+- 관리자 생성 버튼 클릭  
+- 관리자 DID 및 키값 생성 확인  
 ![image](https://user-images.githubusercontent.com/94879566/204724932-3df7c544-994b-4129-8950-0922e86e5975.png)
 
 
+3. 스키마 생성  
 
-3. 스키마 생성
-- 스키마 이름 지정
-- 버전 지정
-- 증명서에 필요한 속성 지정
-- 스키마 등록 버튼 클릭
-![image](https://user-images.githubusercontent.com/94879566/204724961-269c3397-faf9-4a9a-b0e9-a069981379c0.png)
+
+- 스키마 이름 지정  
+- 버전 지정  
+- 증명서에 필요한 속성 지정  
+- 스키마 등록 버튼 클릭  
+![image](https://user-images.githubusercontent.com/94879566/204724961-269c3397-faf9-4a9a-b0e9-a069981379c0.png)  
+
 
 - 스키마 목록 확인
 ![image](https://user-images.githubusercontent.com/94879566/204725000-c4f5ac3b-9a30-4996-b207-90fde4b1469a.png)
