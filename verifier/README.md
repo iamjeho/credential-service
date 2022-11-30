@@ -37,23 +37,43 @@ docker run -p 5000:5000 -p 5050:5050 --env-file .env -it demo-web-app
 ![image](https://user-images.githubusercontent.com/94879566/204541230-d2490a70-fd72-4f29-8123-9e8c55a223f8.png)
 
 
+
 2. 지원자 연결
+
+
 - QR코드 생성 클릭
+
+
 - 팝업창 닫기
 
-- ![image](https://user-images.githubusercontent.com/94879566/204541273-7eac4752-e2c4-4c1b-a0f2-ad826efdcef2.png)
+
+![image](https://user-images.githubusercontent.com/94879566/204541273-7eac4752-e2c4-4c1b-a0f2-ad826efdcef2.png)
+
 
 - 생성된 QR은 사용자용 페이지(localhost:3030)에서 확인 가능
 
+
+
 3. 증명서 제출 요청
+
+
 - 요청 이름 지정
+
+
 - 지원자 DID 선택
+
+
 - 지원에 필요한 증명서 속성 지정
+
+
 - 사용자에게 증명서 제출 요청
-- 
--![image](https://user-images.githubusercontent.com/94879566/204541442-0d8b7f8c-53b4-4844-aae1-3dc6796fa243.png)
+
+
+![image](https://user-images.githubusercontent.com/94879566/204541442-0d8b7f8c-53b4-4844-aae1-3dc6796fa243.png)
+
 
 - 사용자가 증명서 제출 시 수신된 증명서에서 데이터 확인 가능
+
 
 ![image](https://user-images.githubusercontent.com/94879566/204542075-ae8030bc-c8e8-4895-9661-8d6cc23d6346.png)
 
@@ -61,18 +81,29 @@ docker run -p 5000:5000 -p 5050:5050 --env-file .env -it demo-web-app
 ## 사용자용 페이지
 1. localhost:5050 접속
 
+
 2. 증명서 제출
+
+
 - 페이지 내 QR코드를 Connect.me로 인증 후 Connect 버튼 클릭
-- 
+
+
 ![image](https://user-images.githubusercontent.com/94879566/204541304-2ce37e60-7932-4ac3-8133-7dcb64b85db0.png)
+
 
 ![image](https://user-images.githubusercontent.com/94879566/204541351-7ca769e7-1bdf-4f99-aac5-ef284818d134.png)
 
+
 - Connect.me 내 My Connections에서 연결 상태 확인 가능
+
+
 
 ![image](https://user-images.githubusercontent.com/94879566/204541382-5827c619-00a5-4ff2-9213-e60f39457cb6.png)
 
+
+
 - 발급기관이 증명서 제출 요청 시 Connect.me 앱에서 속성값 확인 후 Share Attributes 클릭
+
 
 ![image](https://user-images.githubusercontent.com/94879566/204541467-a88ecb8a-d271-400d-8385-c07a2dfcb7fa.png)
 
