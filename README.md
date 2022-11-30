@@ -25,5 +25,5 @@ Mobile Application : Connect.me
 Open Source : Evernym verity-sdk(https://github.com/evernym/verity-sdk)
 
 
-변경사항 https://github.com/iamjeho/credential-service 통해 업데이트 됩니다.
+변경사항은 https://github.com/iamjeho/credential-service 통해 업데이트 됩니다.
 
