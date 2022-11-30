@@ -33,6 +33,7 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 ```
 ## 관리자용 페이지
 1. localhost:3000 접속
+
 ![image](https://user-images.githubusercontent.com/94879566/204724775-9356e65d-d17b-408b-a9f9-c6f0683ffa9a.png)
 
 
