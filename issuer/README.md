@@ -33,13 +33,13 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 ```
 ## 관리자용 페이지
 1. localhost:3000 접속
-![image](https://user-images.githubusercontent.com/94879566/204535868-6bfda7ed-0328-4717-acbc-09b5ada7007b.png)
+![image](https://user-images.githubusercontent.com/94879566/204724775-9356e65d-d17b-408b-a9f9-c6f0683ffa9a.png)
 
 
 2. 관리자 생성
 - 관리자 생성 버튼 클릭
 - 관리자 DID 및 키값 생성 확인
-![image](https://user-images.githubusercontent.com/94879566/204535956-ce59960b-4f2f-41aa-9cc4-d075cba9d3cf.png)
+![image](https://user-images.githubusercontent.com/94879566/204724932-3df7c544-994b-4129-8950-0922e86e5975.png)
 
 
 
@@ -48,11 +48,10 @@ docker run -p 3000:3000 -p 3030:3030 --env-file .env -it demo-web-app
 - 버전 지정
 - 증명서에 필요한 속성 지정
 - 스키마 등록 버튼 클릭
-![image](https://user-images.githubusercontent.com/94879566/204536002-3df909bc-ef9d-42c0-9ab5-951f479cd15a.png)
+![image](https://user-images.githubusercontent.com/94879566/204724961-269c3397-faf9-4a9a-b0e9-a069981379c0.png)
 
 - 스키마 목록 확인
-![image](https://user-images.githubusercontent.com/94879566/204536027-a5ea5b6e-2b5f-4b3a-953c-2a47c3b2a94e.png)
-
+![image](https://user-images.githubusercontent.com/94879566/204725000-c4f5ac3b-9a30-4996-b207-90fde4b1469a.png)
 
 
 4. 증명서 양식 등록
